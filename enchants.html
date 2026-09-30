@@ -1,0 +1,27 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Enchants - Fish It Wiki</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body data-page="enchants">
+<template id="c">
+<h1>Enchants</h1>
+<div id="toc" class="tabs" aria-label="Loncat ke stone"></div>
+<div id="stones"></div>
+</template>
+<script src="data.js"></script><script src="site.js"></script>
+<script>
+document.getElementById("toc").innerHTML=STONES.map(s=>`<a class="pill" href="#${s.id}">${s.name}</a>`).join("");
+function render(){
+ document.getElementById("stones").innerHTML=STONES.map(s=>{
+  const list=ENCHANTS.filter(e=>e.stone===s.id);
+  return `<section id="${s.id}"><h2>${s.name}</h2>
+  <div class="stonebox">${img("images/"+s.id+".png",s.name,"stoneimg")}
+   <div><p>${s.desc}</p>
+   <p><b>How to get : </b></p><ul>${s.obtain.map(o=>`<li>${o}</li>`).join("")}</ul>
+   <p><b>Use at : </b> ${s.where}</p></div></div>
+  <h3>Index - ${s.name}</h3>
+  ${list.length?`<div class="grid">${list.map(e=>`<div class="card ench">${img("images/"+e.stone+".png",e.name,"eimg")}
+   <div><b>${e.name}</b><p>${e.effect}${e.chance?`<br>Chance: ${e.chance}`:""}</p></div></div>`).join("")}</div>`
+   :`<p class="lead">Daftar enchant untuk stone ini belum diisi.</p>`}</section>`}).join("")}
+render();
+</script></body></html>

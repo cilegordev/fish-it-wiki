@@ -1,0 +1,15 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Segera hadir — Fish It Wiki</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body data-page="soon">
+<template id="c"><h1 id="t">Segera hadir</h1><p class="lead" id="d"></p>
+<div class="info">Halaman ini sedang disiapkan. Sementara itu, lihat <a href="enchants.html">daftar Enchant</a>.</div></template>
+<script src="data.js"></script><script src="site.js"></script>
+<script>
+const s=SOON.find(x=>x.id===new URLSearchParams(location.search).get("p"))||SOON[0];
+document.title=s.name+" (segera) — Fish It Wiki";
+document.getElementById("t").textContent=s.name+": segera hadir";
+document.getElementById("d").textContent=s.desc;
+document.querySelectorAll("nav.side a").forEach(a=>a.classList.toggle("on",a.href.endsWith("p="+s.id)));
+</script></body></html>

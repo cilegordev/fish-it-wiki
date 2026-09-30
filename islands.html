@@ -1,0 +1,26 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Islands — Fish It Wiki</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body data-page="islands">
+<template id="c">
+<h1>Islands</h1>
+<div id="toc" class="tabs" aria-label="Loncat ke pulau"></div>
+<div id="islands"></div>
+</template>
+<script src="data.js"></script><script src="site.js"></script>
+<script>
+document.getElementById("toc").innerHTML=ISLANDS.map(i=>`<a class="pill" href="#${i.id}">${i.name}</a>`).join("");
+function renderFish(list,islandName){
+ const special=list.filter(f=>f.rarity==="SECRET"||f.rarity==="FORGOTTEN");
+ const normal=list.filter(f=>f.rarity!=="SECRET"&&f.rarity!=="FORGOTTEN");
+ if(!list.length)return `<p class="lead">Daftar ikan untuk pulau ini belum diisi.</p>`;
+ let html="";
+ if(special.length)html+=`<h3>Index - ${islandName}</h3><div class="grid">${special.map(f=>`<div class="card special"><span class="specialtag">${f.rarity}</span>${img("images/"+slug(f.name)+".png",f.name,"stoneimg")}<b>${f.name}</b>${f.chance?`<p>Chance: ${f.chance}</p>`:""}<p class="meta">${f.time?`Time: ${f.time}`:"Any Time"}<br>${f.weather?`Weather: ${f.weather}`:"Any Weather"}</p>${f.weight?`<p class="weight">Weight: ${f.weight}${f.big?`<br>Big: ${f.big}`:""}</p>`:""}</div>`).join("")}</div>`;
+ if(normal.length)html+=`<details class="collapse"><summary><svg class="chev" viewBox="0 0 16 16" width="14" height="14"><path d="M4 2l8 6-8 6z" fill="currentColor"></path></svg>Other Rarity - ${islandName} <span class="count">${normal.length}</span></summary><ul class="fishlist"><li class="head"><span>Fish</span><span>Chance</span><span class="rarity">Rarity</span></li>${normal.map(f=>`<li><span>${f.name}</span><span>${f.chance||"-"}</span><span class="rarity">${f.rarity}</span></li>`).join("")}</ul></details>`;
+ return html;
+}
+document.getElementById("islands").innerHTML=ISLANDS.map(i=>`<section id="${i.id}"><h2>${i.name}</h2>
+ <div class="stonebox islandbox">${img("images/"+i.id+".png",i.name,"islandimg")}</div>
+ ${renderFish(FISH.filter(f=>f.island===i.id),i.name)}</section>`).join("");
+</script></body></html>
