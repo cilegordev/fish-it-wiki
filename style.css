@@ -70,6 +70,11 @@ main section{margin-bottom:36px}
 .collapse .count{font-weight:600;font-size:.85rem;color:var(--mute);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:1px 9px}
 .collapse .fishlist{margin-top:10px}
 .card.special{position:relative;border-color:var(--accent);text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.card.special.secret,.card.special.forgotten{border-width:2px}
+.card.special.secret{border-color:#22e0b8}
+.card.special.secret .specialtag{background:#22e0b8;color:#04211b}
+.card.special.forgotten{border-color:#000;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.card.special.forgotten .specialtag{background:#000;color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
 .card.special .stoneimg{width:120px;height:120px;margin:4px 0 6px}
 .card.special b{font-size:1rem}
 .card.special p{margin:0;color:var(--mute);font-size:.9rem}
@@ -80,3 +85,5 @@ main section{margin-bottom:36px}
 .cover h1{font-size:2.4rem;margin-bottom:8px}
 .cover .grid{margin-top:24px}
 .cover .card{padding:20px}
+
+img{-webkit-user-drag:none;user-select:none;-webkit-user-select:none}

@@ -1,6 +1,8 @@
 const ISLANDS = [
  {id:"fisherman-island",name:"Fisherman Island"},
+ {id:"mariana-trench",name:"Mariana Trench"},
  {id:"planetary-observatory",name:"Planetary Observatory"},
+ // underwater city
  {id:"ocean",name:"Ocean"},
  {id:"kohana",name:"Kohana"},
  {id:"kohana-lab",name:"Kohana Lab"}, 
@@ -17,6 +19,13 @@ const ISLANDS = [
  {id:"underground-cellar",name:"Underground Cellar"},
  {id:"sacred-temple",name:"Sacred Temple"},
  {id:"ancient-ruin",name:"Ancient Ruin"},
+ {id:"stingray-shores",name:"Stingray Shores"},
+// {id:"pirate-cove",name:"Pirate Cove"},
+// {id:"pirate-treasure-room",name:"Pirate Treasure Room"},
+// {id:"cystal-depths",name:"Crystal Depths"},
+// {id:"gloomcap-grotto",name:"Gloomcap Grotto"},
+// {id:"elemental-island",name:"Elemental Island"},
+// {id:"throne-room",name:"Throne Room"},
 
  {id:"unknown",name:"???"}
 ];
@@ -54,6 +63,23 @@ const FISH = [
  {name:"Dotted Stingray",rarity:"Mythic",chance:"1 in 91k",island:"fisherman-island"},
  {name:"Crystal Crab",rarity:"SECRET",chance:"1 in 750k",island:"fisherman-island",weight:"110.52K kg - 130.96K kg",big:"140.96K kg - 155.31K kg"},
  {name:"Orca",rarity:"SECRET",chance:"1 in 1.50M",island:"fisherman-island",weight:"115.47K kg - 126.78K kg",big:"140.31K kg - 175.81M kg"},
+ // Mariana Trench
+ {name:"Trench Gulpe",rarity:"Common",chance:"1 in 10",island:"mariana-trench"},
+ {name:"Crowned Hadal Coffinfish",rarity:"Common",chance:"1 in 20",island:"mariana-trench"},
+ {name:"Glass Lancetfish",rarity:"Uncommon",chance:"1 in 50",island:"mariana-trench"},
+ {name:"Abyssjaw",rarity:"Uncommon",chance:"1 in 50",island:"mariana-trench"},
+ {name:"Longspine Dory",rarity:"Uncommon",chance:"1 in 150",island:"mariana-trench"},
+ {name:"Luminous Thornyhead",rarity:"Rare",chance:"1 in 350",island:"mariana-trench"},
+ {name:"Ghostlight Oarfish",rarity:"Rare",chance:"1 in 350",island:"mariana-trench"},
+ {name:"Gilded Giant Isopod",rarity:"Rare",chance:"1 in 500",island:"mariana-trench"},
+ {name:"Bloodlight Anglerfish",rarity:"Epic",chance:"1 in 2.50k",island:"mariana-trench"},
+ {name:"Emberback Spider Crab",rarity:"Epic",chance:"1 in 3.50k",island:"mariana-trench"},
+ {name:"Prismatic Nudibranch",rarity:"Legendary",chance:"1 in 7.78k",island:"mariana-trench"},
+ {name:"Geodeback Sea Turtle",rarity:"Legendary",chance:"1 in 15k",island:"mariana-trench"},
+ {name:"Glasswing Devil Ray",rarity:"Legendary",chance:"1 in 15k",island:"mariana-trench"},
+ {name:"Caeruleum Razerback",rarity:"SECRET",chance:"1 in 3M",island:"mariana-trench",weather:"Trench RNG",weight:"444.44K kg - 484.85K kg",big:"505.50K kg - 525.25K kg"},
+ {name:"Colossal Shipwreck Crab",rarity:"SECRET",chance:"1 in 4k",island:"mariana-trench",weather:"Trench RNG",weight:"750K kg - 810K kg",big:"830K kg - 880K kg"},
+ {name:"Trench Warden",rarity:"FORGOTTEN",chance:"1 in 15M",island:"mariana-trench",weight:"950K kg - 990K kg",big:"1.03M kg - 1.08M kg"},
  // Planetary Observatory
  {name:"Yellowstate Angelfish",rarity:"Common",chance:"1 in 2",island:"planetary-observatory"},
  {name:"Vintage Blue Tang",rarity:"Common",chance:"1 in 2",island:"planetary-observatory"},
@@ -496,6 +522,31 @@ const FISH = [
  {name:"Gladiator Shark",rarity:"SECRET",chance:"1 in 1M",island:"ancient-ruin",weight:"10.29k kg - 16.43k kg",big:"19.43k kg - 25k kg"},
  {name:"Ancient Lochness Monster",rarity:"SECRET",chance:"1 in 3M",island:"ancient-ruin",weather:"Ancient Ruin",weight:"260k kg - 295k kg",big:"338k kg - 381k kg"},
  {name:"Elshark Gran Maja",rarity:"SECRET",chance:"1 in 4M",island:"ancient-ruin",weight:"450k kg - 520k kg",big:"560k kg - 650k kg"},
+ // Stingray Shores
+ {name:"Floaty Damsel",rarity:"Common",chance:"1 in 5",island:"stingray-shores"},
+ {name:"Stripped Straw Hat Fish",rarity:"Common",chance:"1 in 5",island:"stingray-shores"},
+ {name:"Hoola Hoop Bass",rarity:"Common",chance:"1 in 10",island:"stingray-shores"},
+ {name:"Sunny Beakfish",rarity:"Common",chance:"1 in 10",island:"stingray-shores"},
+ {name:"Coconut Dotty",rarity:"Common",chance:"1 in 20",island:"stingray-shores"},
+ {name:"Hibiscus Chromis",rarity:"Uncommon",chance:"1 in 60",island:"stingray-shores"},
+ {name:"Lifeguard Longfish",rarity:"Uncommon",chance:"1 in 60",island:"stingray-shores"},
+ {name:"Surfboard Cardinal",rarity:"Uncommon",chance:"1 in 150",island:"stingray-shores"},
+ {name:"Tourist Tang",rarity:"Rare",chance:"1 in 350",island:"stingray-shores"},
+ {name:"Tropical Doober Fish",rarity:"Rare",chance:"1 in 350",island:"stingray-shores"},
+ {name:"Cabana-cuda",rarity:"Rare",chance:"1 in 500",island:"stingray-shores"},
+ {name:"Sunglass Snapper",rarity:"Rare",chance:"1 in 500",island:"stingray-shores"},
+ {name:"Cabana Carp",rarity:"Epic",chance:"1 in 1.20k",island:"stingray-shores"},
+ {name:"Poolside Nautilus",rarity:"Epic",chance:"1 in 1.20k",island:"stingray-shores"},
+ {name:"Loungehorn Cowfish",rarity:"Epic",chance:"1 in 2k",island:"stingray-shores"},
+ {name:"Longboard Boxfish",rarity:"Epic",chance:"1 in 3k",island:"stingray-shores"},
+ {name:"Snorkel Sturgeon",rarity:"Legendary",chance:"1 in 10k",island:"stingray-shores"},
+ {name:"Sunbather Mantan Ray",rarity:"Legendary",chance:"1 in 20k",island:"stingray-shores"},
+ {name:"Pailatee",rarity:"Mythic",chance:"1 in 60k",island:"stingray-shores"},
+ {name:"SPFin Shark",rarity:"Mythic",chance:"1 in 60k",island:"stingray-shores"},
+ {name:"Elemental Tempestray",rarity:"SECRET",chance:"1 in 1M",island:"stingray-shores",weight:"380k kg - 430k kg",big:"460k kg - 500k kg"},
+ {name:"Coral Reaper",rarity:"SECRET",chance:"1 in 6M",island:"stingray-shores",weight:"750k kg - 830k kg",big:"870k kg - 920k kg"},
+ {name:"Two-Headed Shark",rarity:"SECRET",chance:"1 in 6M",island:"stingray-shores",weather:"Admin - Bermuda Triangle",weight:"700k kg - 770k kg",big:"790k kg - 890k kg"},
+ {name:"Dark Megalodon",rarity:"SECRET",chance:"1 in 8M",island:"stingray-shores",weather:"Dark Megalodon Hunt",weight:"850k kg - 925k kg",big:"980k kg - 1.10M kg"},
 
  // ???
  {name:"Sunken Hadalith",rarity:"SECRET",chance:"???",island:"unknown",time:"???",weather:"???",weight:"???",big:"???"},
@@ -526,7 +577,7 @@ const STONES = [
  {id:"withering-stone",name:"Withering Stone",
   desc:"Apply the Withering Stone buff which can only be used on your second Withering Rod to enchant it!",
   obtain:["You can obtain it by completing a quest from the Lucid NPC in the Copper canyon.",
-    "Quest : Own a Withering Rod", "Catch a Runic Enchant Stone", "Catch 4M rarity worh of fish",
+    "Quest : Own a Withering Rod", "Catch a Runic Enchant Stone", "Catch 4M rarity worth of fish",
     "Catch 50 fish while using PERFECT! throw" ],
   where:"Sacred Temple Altar."}
 ];

@@ -10,6 +10,7 @@
  <div class="layout"><nav class="side" aria-label="Navigasi">${side}</nav><div class="backdrop"></div><main id="content"></main></div>
  <footer><span id="clock"></span></footer>`);
  document.getElementById("content").append(...document.querySelectorAll("template#c")[0].content.childNodes);
+ document.addEventListener("dragstart",e=>{if(e.target.tagName==="IMG")e.preventDefault()});
  const clockEl=document.getElementById("clock"),p2=n=>String(n).padStart(2,"0");
  const tick=()=>{const d=new Date();clockEl.textContent=p2(d.getDate())+"/"+p2(d.getMonth()+1)+"/"+d.getFullYear()+" - "+p2(d.getHours())+":"+p2(d.getMinutes())+":"+p2(d.getSeconds())};
  tick();setInterval(tick,1000);
