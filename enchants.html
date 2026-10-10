@@ -15,12 +15,12 @@ function render(){
  document.getElementById("stones").innerHTML=STONES.map(s=>{
   const list=ENCHANTS.filter(e=>e.stone===s.id);
   return `<section id="${s.id}"><h2>${s.name}</h2>
-  <div class="stonebox">${img("images/"+s.id+".png",s.name,"stoneimg")}
+  <div class="stonebox">${img(IMG.item+s.id+".png",s.name,"stoneimg")}
    <div><p>${s.desc}</p>
    <p><b>How to get : </b></p><ul>${s.obtain.map(o=>`<li>${o}</li>`).join("")}</ul>
    <p><b>Use at : </b> ${s.where}</p></div></div>
   <h3>Index - ${s.name}</h3>
-  ${list.length?`<div class="grid">${list.map(e=>`<div class="card ench">${img("images/"+e.stone+".png",e.name,"eimg")}
+  ${list.length?`<div class="grid">${list.map(e=>`<div class="card ench">${img(IMG.item+e.stone+".png",e.name,"eimg")}
    <div><b>${e.name}</b><p>${e.effect}${e.chance?`<br>Chance: ${e.chance}`:""}</p></div></div>`).join("")}</div>`
    :`<p class="lead">Daftar enchant untuk stone ini belum diisi.</p>`}</section>`}).join("")}
 render();
