@@ -2,7 +2,7 @@
 (function(){
  if(typeof SOON==="undefined"){document.body.insertAdjacentHTML("afterbegin","<p style=\"padding:20px;color:#e4572e;font:16px sans-serif\">Gagal memuat data.js. Pastikan file data.js ada di folder yang sama dengan halaman ini (nama file harus persis huruf kecil).</p>");return}
  const page=document.body.dataset.page||"home";
- const links=[["islands.html","Islands","islands"]]
+ const links=[["islands.html","Islands","islands"],["rods.html","Rods","rods"]]
   .concat(SOON.map(s=>["coming-soon.html?p="+s.id,s.name,"soon-"+s.id]))
   .concat([["enchants.html","Enchants","enchants"]]);
  const side=links.map(l=>`<a href="${l[0]}" class="${l[2]===page?"on":""}">${l[1]}${l[2].startsWith("soon")?"<small>segera</small>":""}</a>`).join("");

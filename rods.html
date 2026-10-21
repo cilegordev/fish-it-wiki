@@ -1,0 +1,40 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rods - Fish It Wiki</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body data-page="rods">
+<template id="c">
+<h1>Rods</h1>
+<p class="lead"></p>
+<div id="toc" class="tabs" aria-label="Loncat ke rod"></div>
+<div id="rods"></div>
+</template>
+<script src="data.js"></script><script src="site.js"></script>
+<script>
+const fmtPrice=p=>{
+ if(p===undefined||p===null||p==="")return "";
+ const s=String(p).trim();
+ if(/^0+$/.test(s))return "Free";
+ if(/^[\d.,]+$/.test(s))return Number(s.replace(/,/g,"")).toLocaleString("en-US")+" Coins";
+ if(/^[\d.,]+\s*[KMBTkmbt]$/.test(s))return s.replace(/\s+/g,"").toUpperCase()+" Coins";
+ return s;
+};
+const stat=(label,val,cls="")=>val?`<div class="rstat ${cls}"><span>${label}</span><b>${val}</b></div>`:"";
+document.getElementById("toc").innerHTML=RODS.map(r=>`<a class="pill" href="#${slug(r.name)}">${r.name}</a>`).join("");
+document.getElementById("rods").innerHTML=RODS.map(r=>{
+ const quest=Array.isArray(r.quest)?r.quest:(r.quest?[r.quest]:[]);
+ const u=r.stat??r.stas;
+ const uniq=Array.isArray(u)?u:(u?[u]:[]);
+ const price=fmtPrice(r.price);
+ const isl=r.island?(ISLANDS.find(i=>i.id===r.island||i.name.toLowerCase()===String(r.island).toLowerCase())):null;
+ const at=r.island?` at ${isl?isl.name:r.island}`:"";
+ return `<section class="rodrow ${slug((r.rarity||"").split(" ")[0])}" id="${slug(r.name)}">
+  ${img(IMG.rod+slug(r.name)+".png",r.name,"rodimg")}
+  <div class="rodinfo">
+   <div class="rodhead"><h2>${r.name}</h2>${r.rarity?`<span class="rodtag">${r.rarity}</span>`:""}${quest.length?`<span class="rodtag quest">QUEST</span>`:""}</div>
+   ${r.desc?`<p>${r.desc}</p>`:""}
+   <div class="rstats">${stat("Luck",r.luck)}${stat("Speed",r.speed)}${stat("Max Weight",r.weight)}${(Array.isArray(r.stats)?r.stats:(r.stats?[r.stats]:[])).map(v=>stat("Unique Stat",v)).join("")}${uniq.map(u=>stat("Unique Stat",u,"uniq")).join("")}</div>
+   <p><b>How to get : </b></p>
+   <ul>${quest.length&&!price&&r.island?`<li>Location: ${r.island}</li>`:""}${quest.length&&r.questName?`<li>Quest: ${r.questName}</li>`:""}${quest.length?quest.map(q=>`<li>${q}</li>`).join(""):""}${price&&!quest.length?`<li>${price==="Free"?"Free, you start with this rod.":"Buy "+price+at+"."}</li>`:""}${price&&quest.length?`<li>Price: ${price}${at}</li>`:""}${!quest.length&&!price?`<li>Belum diisi.</li>`:""}</ul>
+  </div></section>`}).join("");
+</script></body></html>
