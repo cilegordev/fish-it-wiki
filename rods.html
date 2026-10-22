@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="style.css"></head><body data-page="rods">
 <template id="c">
 <h1>Rods</h1>
-<p class="lead"></p>
+<p class="lead">Semua pancingan, statistik, dan cara mendapatkannya.</p>
 <div id="toc" class="tabs" aria-label="Loncat ke rod"></div>
 <div id="rods"></div>
 </template>
@@ -19,22 +19,26 @@ const fmtPrice=p=>{
  if(/^[\d.,]+\s*[KMBTkmbt]$/.test(s))return s.replace(/\s+/g,"").toUpperCase()+" Coins";
  return s;
 };
-const stat=(label,val,cls="")=>val?`<div class="rstat ${cls}"><span>${label}</span><b>${val}</b></div>`:"";
+const stat=(label,val,cls="")=>val?`<div class="rstat ${cls}"><span${label==="Unique Stat"?' class="nw"':""}>${label}</span><b>${val}</b></div>`:"";
 document.getElementById("toc").innerHTML=RODS.map(r=>`<a class="pill" href="#${slug(r.name)}">${r.name}</a>`).join("");
 document.getElementById("rods").innerHTML=RODS.map(r=>{
  const quest=Array.isArray(r.quest)?r.quest:(r.quest?[r.quest]:[]);
  const u=r.stat??r.stas;
  const uniq=Array.isArray(u)?u:(u?[u]:[]);
+ const toArr=x=>(Array.isArray(x)?x:(x==null||x===""?[]:[x])).filter(v=>v!=null&&v!=="");
+ const parts=(Array.isArray(r.quests)?r.quests:[]).map(p=>typeof p==="string"?{name:"",steps:[p]}:{name:p.name??p.questName??p.title??"",steps:toArr(p.steps??p.quest??p.list)}).filter(p=>p.name||p.steps.length);
+ const hq=quest.length>0||parts.length>0;
+ const uStat=(v,c="")=>v&&typeof v==="object"?stat(v.name||"Unique Stat",v.value,c+" stk"):stat("Unique Stat",v,c+" stk");
  const price=fmtPrice(r.price);
  const isl=r.island?(ISLANDS.find(i=>i.id===r.island||i.name.toLowerCase()===String(r.island).toLowerCase())):null;
  const at=r.island?` at ${isl?isl.name:r.island}`:"";
  return `<section class="rodrow ${slug((r.rarity||"").split(" ")[0])}" id="${slug(r.name)}">
   ${img(IMG.rod+slug(r.name)+".png",r.name,"rodimg")}
   <div class="rodinfo">
-   <div class="rodhead"><h2>${r.name}</h2>${r.rarity?`<span class="rodtag">${r.rarity}</span>`:""}${quest.length?`<span class="rodtag quest">QUEST</span>`:""}</div>
+   <div class="rodhead"><h2>${r.name}</h2>${r.rarity?`<span class="rodtag">${r.rarity}</span>`:""}${hq?`<span class="rodtag quest">QUEST</span>`:""}</div>
    ${r.desc?`<p>${r.desc}</p>`:""}
-   <div class="rstats">${stat("Luck",r.luck)}${stat("Speed",r.speed)}${stat("Max Weight",r.weight)}${(Array.isArray(r.stats)?r.stats:(r.stats?[r.stats]:[])).map(v=>stat("Unique Stat",v)).join("")}${uniq.map(u=>stat("Unique Stat",u,"uniq")).join("")}</div>
+   <div class="rstats">${stat("Luck",r.luck)}${stat("Speed",r.speed)}${stat("Max Weight",r.weight)}${(Array.isArray(r.stats)?r.stats:(r.stats?[r.stats]:[])).map(v=>uStat(v)).join("")}${uniq.map(u=>uStat(u,"uniq")).join("")}</div>
    <p><b>How to get : </b></p>
-   <ul>${quest.length&&!price&&r.island?`<li>Location: ${r.island}</li>`:""}${quest.length&&r.questName?`<li>Quest: ${r.questName}</li>`:""}${quest.length?quest.map(q=>`<li>${q}</li>`).join(""):""}${price&&!quest.length?`<li>${price==="Free"?"Free, you start with this rod.":"Buy "+price+at+"."}</li>`:""}${price&&quest.length?`<li>Price: ${price}${at}</li>`:""}${!quest.length&&!price?`<li>Belum diisi.</li>`:""}</ul>
+   <ul>${hq&&!price&&r.island?`<li>Location: ${r.island}</li>`:""}${quest.length&&r.questName?`<li>Quest: ${r.questName}</li>`:""}${quest.length?quest.map(q=>`<li>${q}</li>`).join(""):""}${parts.map(p=>(p.name?`<li class="qh">Quest: ${p.name}</li>`:"")+p.steps.map(q=>`<li>${q}</li>`).join("")).join("")}${price&&!hq?`<li>${price==="Free"?"Free, you start with this rod.":"Buy "+price+at+"."}</li>`:""}${price&&hq?`<li>Price: ${price}${at}</li>`:""}${!hq&&!price?`<li>${r.island?"Available at "+r.island+".":"Belum diisi."}</li>`:""}</ul>
   </div></section>`}).join("");
 </script></body></html>
