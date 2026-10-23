@@ -832,7 +832,7 @@ const RODS = [
     island:"Kohana Volcano"},
  {name:"Luck Rod",luck:"50%",speed:"2%",weight:"15kg",rarity:"Uncommon",price:"225",island:"Fisherman Island"},
  {name:"Grass Rod",luck:"55%",speed:"5%",weight:"250kg",rarity:"Uncommon",price:"1.50K",island:"Fisherman Island"},
- {name:"Damascus Rod",luck:"80%",speed:"4%",weight:"400kg",rarity:"Uncommon",price:"3K",island:"Fisherman Island"},
+ {name:"Demascus Rod",luck:"80%",speed:"4%",weight:"400kg",rarity:"Uncommon",price:"3K",island:"Fisherman Island"},
  {name:"Ice Rod",luck:"60%",speed:"7%",weight:"750kg",rarity:"Uncommon",price:"5K",island:"Fisherman Island"},
  {name:"Lucky Rod",luck:"140%",speed:"7%",weight:"5K kg",rarity:"Rare",price:"15K",island:"Fisherman Island"},
  {name:"Midnight Rod",luck:"100%",speed:"10%",weight:"10K kg",rarity:"Rare",price:"50K",island:"Fisherman Island"},
