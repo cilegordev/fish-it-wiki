@@ -1,44 +1,20 @@
 <!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="All Fish It rods with luck, speed, max weight, unique stats, and how to get them."><meta name="theme-color" content="#06121a">
 <title>Rods - Fish It Wiki</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body data-page="rods">
 <template id="c">
 <h1>Rods</h1>
-<p class="lead">Semua pancingan, statistik, dan cara mendapatkannya.</p>
 <div id="toc" class="tabs" aria-label="Loncat ke rod"></div>
 <div id="rods"></div>
 </template>
 <script src="data.js"></script><script src="site.js"></script>
+<script src="cards.js"></script>
 <script>
-const fmtPrice=p=>{
- if(p===undefined||p===null||p==="")return "";
- const s=String(p).trim();
- if(/^0+$/.test(s))return "Free";
- if(/^[\d.,]+$/.test(s))return Number(s.replace(/,/g,"")).toLocaleString("en-US")+" Coins";
- if(/^[\d.,]+\s*[KMBTkmbt]$/.test(s))return s.replace(/\s+/g,"").toUpperCase()+" Coins";
- return s;
-};
-const stat=(label,val,cls="")=>val?`<div class="rstat ${cls}"><span${label==="Unique Stat"?' class="nw"':""}>${label}</span><b>${val}</b></div>`:"";
-document.getElementById("toc").innerHTML=RODS.map(r=>`<a class="pill" href="#${slug(r.name)}">${r.name}</a>`).join("");
-document.getElementById("rods").innerHTML=RODS.map(r=>{
- const quest=Array.isArray(r.quest)?r.quest:(r.quest?[r.quest]:[]);
- const u=r.stat??r.stas;
- const uniq=Array.isArray(u)?u:(u?[u]:[]);
- const toArr=x=>(Array.isArray(x)?x:(x==null||x===""?[]:[x])).filter(v=>v!=null&&v!=="");
- const parts=(Array.isArray(r.quests)?r.quests:[]).map(p=>typeof p==="string"?{name:"",steps:[p]}:{name:p.name??p.questName??p.title??"",steps:toArr(p.steps??p.quest??p.list)}).filter(p=>p.name||p.steps.length);
- const hq=quest.length>0||parts.length>0;
- const uStat=(v,c="")=>v&&typeof v==="object"?stat(v.name||"Unique Stat",v.value,c+" stk"):stat("Unique Stat",v,c+" stk");
- const price=fmtPrice(r.price);
- const isl=r.island?(ISLANDS.find(i=>i.id===r.island||i.name.toLowerCase()===String(r.island).toLowerCase())):null;
- const at=r.island?` at ${isl?isl.name:r.island}`:"";
- return `<section class="rodrow ${slug((r.rarity||"").split(" ")[0])}" id="${slug(r.name)}">
-  ${img(IMG.rod+slug(r.name)+".png",r.name,"rodimg")}
-  <div class="rodinfo">
-   <div class="rodhead"><h2>${r.name}</h2>${r.rarity?`<span class="rodtag">${r.rarity}</span>`:""}${hq?`<span class="rodtag quest">QUEST</span>`:""}</div>
-   ${r.desc?`<p>${r.desc}</p>`:""}
-   <div class="rstats">${stat("Luck",r.luck)}${stat("Speed",r.speed)}${stat("Max Weight",r.weight)}${(Array.isArray(r.stats)?r.stats:(r.stats?[r.stats]:[])).map(v=>uStat(v)).join("")}${uniq.map(u=>uStat(u,"uniq")).join("")}</div>
-   <p><b>How to get : </b></p>
-   <ul>${hq&&!price&&r.island?`<li>Location: ${r.island}</li>`:""}${quest.length&&r.questName?`<li>Quest: ${r.questName}</li>`:""}${quest.length?quest.map(q=>`<li>${q}</li>`).join(""):""}${parts.map(p=>(p.name?`<li class="qh">Quest: ${p.name}</li>`:"")+p.steps.map(q=>`<li>${q}</li>`).join("")).join("")}${price&&!hq?`<li>${price==="Free"?"Free, you start with this rod.":"Buy "+price+at+"."}</li>`:""}${price&&hq?`<li>Price: ${price}${at}</li>`:""}${!hq&&!price?`<li>${r.island?"Available at "+r.island+".":"Belum diisi."}</li>`:""}</ul>
-  </div></section>`}).join("");
+const statRows=r=>stat("Luck",r.luck)+stat("Speed",r.speed)+stat("Max Weight",r.weight)
+ +toArr(r.stats).map(v=>{const p=splitStat(v,"Unique Stat");return stat(p.label,p.value,"stk")}).join("");
+document.getElementById("toc").innerHTML=tocHTML(RODS);
+document.getElementById("rods").innerHTML=RODS.map(r=>cardHTML(r,{imgDir:IMG.rod,noun:"rod",stats:statRows(r)})).join("");
 </script></body></html>

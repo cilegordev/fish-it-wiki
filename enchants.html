@@ -1,6 +1,8 @@
 <!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Fish It enchant stones and the enchants each stone can give, with effects and chances."><meta name="theme-color" content="#06121a">
 <title>Enchants - Fish It Wiki</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head><body data-page="enchants">
 <template id="c">
@@ -14,11 +16,12 @@ document.getElementById("toc").innerHTML=STONES.map(s=>`<a class="pill" href="#$
 function render(){
  document.getElementById("stones").innerHTML=STONES.map(s=>{
   const list=ENCHANTS.filter(e=>e.stone===s.id);
+  const obtain=(Array.isArray(s.obtain)?s.obtain:(s.obtain?[s.obtain]:[])).filter(Boolean);
   return `<section id="${s.id}"><h2>${s.name}</h2>
   <div class="stonebox">${img(IMG.item+s.id+".png",s.name,"stoneimg")}
-   <div><p>${s.desc}</p>
-   <p><b>How to get : </b></p><ul>${s.obtain.map(o=>`<li>${o}</li>`).join("")}</ul>
-   <p><b>Use at : </b> ${s.where}</p></div></div>
+   <div>${s.desc?`<p>${s.desc}</p>`:""}
+   ${obtain.length?`<p><b>How to get : </b></p><ul>${obtain.map(o=>`<li>${o}</li>`).join("")}</ul>`:""}
+   ${s.where?`<p><b>Use at : </b> ${s.where}</p>`:""}</div></div>
   <h3>Index - ${s.name}</h3>
   ${list.length?`<div class="grid">${list.map(e=>`<div class="card ench">${img(IMG.item+e.stone+".png",e.name,"eimg")}
    <div><b>${e.name}</b><p>${e.effect}${e.chance?`<br>Chance: ${e.chance}`:""}</p></div></div>`).join("")}</div>`
